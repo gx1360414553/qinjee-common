@@ -10,6 +10,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class RequestData {
-    int pageCurrent;
-    int pageSize;
+    Integer pageCurrent;
+    Integer pageSize;
 }
