@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * 参数接受类
+ * 请求参数封装类
  */
 
 @Data

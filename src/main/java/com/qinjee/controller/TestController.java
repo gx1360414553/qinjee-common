@@ -38,14 +38,14 @@ public class TestController {
     }
 
     @RequestMapping("/getUserList")
-    public QueryResponseResult<String> getUserList(MyTestRequest myTestRequest){
+    public PageResponseResult<String> getUserList(MyTestRequest myTestRequest){
         System.out.printf("当前页：" + myTestRequest.getPageCurrent() + ",每页大小：" + myTestRequest.getPageSize() + ",姓名：" + myTestRequest.getName());
-        QueryResult<String> queryResul = new QueryResult<>();
+        PageResult<String> queryResul = new PageResult<>();
         List<String> list = new ArrayList<>();
         list.add("张三");
         queryResul.setList(list);
         queryResul.setTotal(5);
-        QueryResponseResult<String> queryResponseResult = new QueryResponseResult<>(CommonCode.SUCCESS,queryResul);
+        PageResponseResult<String> queryResponseResult = new PageResponseResult<>(CommonCode.SUCCESS,queryResul);
         return queryResponseResult;
     }
 

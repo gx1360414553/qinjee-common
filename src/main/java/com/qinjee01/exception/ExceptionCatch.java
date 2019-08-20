@@ -21,30 +21,40 @@ public class ExceptionCatch {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionCatch.class);
 
-    //定义map的builder对象，去构建ImmutableMap
-    //每个模块可以继承这个类自定义异常处理，继承后builder可以使用静态代码块添加模块自定义的异常 列如：builder.put(HttpMessageNotReadableException.class,CommonCode.INVALID_PARAM);
-    //builder.put(自定义的异常类,自定义的编码);
-    protected static ImmutableMap.Builder<Class<? extends Throwable>,ResultCode> builder = ImmutableMap.builder();
-
-    //定义map，配置异常类型所对应的错误代码
+    /**
+     * 定义map，配置异常类型所对应的错误代码
+     */
     private static ImmutableMap<Class<? extends Throwable>, ResultCode> EXCEPTIONS;
 
+    /**
+     * 定义map的builder对象，去构建ImmutableMap
+     */
+    protected static ImmutableMap.Builder<Class<? extends Throwable>,ResultCode> builder = ImmutableMap.builder();
 
-    //捕获CustomException此类异常
-    @ExceptionHandler(CustomException.class)
+    /**
+     * 捕获BusinessException此类异常
+     * @param businessException
+     * @return
+     */
+    @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public ResponseResult customException(CustomException customException){
-        customException.printStackTrace();
+    public ResponseResult customException(BusinessException businessException){
+//        businessException.printStackTrace();
         //记录日志
-        LOGGER.error("catch exception:{}",customException.getMessage());
-        ResultCode resultCode = customException.getResultCode();
+        LOGGER.error("catch exception:{}",businessException.getMessage());
+        ResultCode resultCode = businessException.getResultCode();
         return new ResponseResult(resultCode);
     }
-    //捕获Exception此类异常
+
+    /**
+     * 捕获Exception此类异常
+     * @param exception
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseResult exception(Exception exception){
-        exception.printStackTrace();
+//        exception.printStackTrace();
         //记录日志
         LOGGER.error("catch exception:{}",exception.getMessage());
         if(EXCEPTIONS == null){
